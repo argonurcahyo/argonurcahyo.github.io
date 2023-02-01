@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { Movie } from '../typings'
+import { Movie } from '../../typings'
 
 export const modalState = atom({
     key: 'modalState',

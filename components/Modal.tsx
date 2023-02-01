@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom.'
 import MuiModal from '@mui/material/Modal'
-import { Genre, Movie } from '../typings'
+import { Genre, Movie } from '../../typings'
 import toast, { Toaster } from 'react-hot-toast'
 
 const Modal = () => {

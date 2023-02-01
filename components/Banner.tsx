@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Movie } from '../typings'
+import { Movie } from '../../typings'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/legacy/image'
 import { baseUrl } from '../constants/movie'
