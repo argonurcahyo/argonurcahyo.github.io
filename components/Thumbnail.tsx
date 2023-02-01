@@ -1,5 +1,5 @@
 import React from 'react'
-import { Movie } from '../../typings'
+import { Movie } from '../typings'
 import Image from 'next/legacy/image'
 
 interface Props {
