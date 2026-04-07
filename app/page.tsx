@@ -5,6 +5,7 @@ import {
   ChartColumnBig,
   Database,
   FolderKanban,
+  Gamepad2,
   GitFork,
   Globe2,
   ImageOff,
@@ -27,7 +28,9 @@ import {
   supportingProjects,
 } from "@/app/portfolio-data";
 import { ProjectCard } from "@/components/project-card";
+import { ReflexGrid } from "@/components/reflex-grid";
 import { SectionHeading } from "@/components/section-heading";
+import { SignalDodge } from "@/components/signal-dodge";
 import { TechIcon } from "@/components/tech-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -63,6 +66,15 @@ const profileLinks =[
 
 const skillIcons =[Braces, Map, Smartphone, Database, RadioTower, ChartColumnBig];
 
+const sectionNavItems = [
+  { href: "#top", label: "boot()" },
+  { href: "#playground", label: "runGames()" },
+  { href: "#about", label: "describeWork()" },
+  { href: "#projects", label: "projects[]" },
+  { href: "#skills", label: "stack.map()" },
+  { href: "#contact", label: "contact()" },
+];
+
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
@@ -70,29 +82,26 @@ export default function Home() {
       <div className="pointer-events-none fixed inset-0 z-0 h-full w-full bg-[radial-gradient(rgba(148,163,184,0.24)_1px,transparent_1px)] bg-size-[16px_16px] opacity-45" />
 
       {/* Floating Pill Navigation */}
-      <header className="fixed inset-x-0 top-6 z-50 mx-auto flex w-fit max-w-[90vw] items-center justify-between rounded-full border border-border/70 bg-background/78 px-4 py-2 shadow-[0_10px_28px_rgba(3,8,18,0.45)] backdrop-blur-md">
+      <header className="fixed inset-x-0 top-6 z-50 mx-auto flex w-[min(96vw,1040px)] items-center justify-between rounded-full border border-border/70 bg-background/78 px-3 py-2 shadow-[0_10px_28px_rgba(3,8,18,0.45)] backdrop-blur-md sm:px-4">
         <a href="#top" className="mr-6 flex items-center gap-2 transition-opacity hover:opacity-80">
           <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Terminal size={14} />
           </div>
           <span className="font-mono text-sm font-semibold tracking-tight">argo.dev</span>
         </a>
-        <nav className="flex items-center gap-1 sm:gap-4">
-          <Link className="rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" href="/profile">
-            profile
+        <nav className="flex max-w-[74vw] items-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-2">
+          <Link className="rounded-full border border-border/55 bg-muted/15 px-3 py-1 font-mono text-[10px] font-medium tracking-[0.18em] text-primary transition-colors hover:bg-primary/10" href="/profile">
+            import profile
           </Link>
-          <a className="rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" href="#about">
-            _about
-          </a>
-          <a className="rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" href="#projects">
-            _work
-          </a>
-          <a className="hidden rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground sm:block" href="#skills">
-            _skills
-          </a>
-          <a className="rounded-full px-3 py-1 font-mono text-xs font-medium text-primary transition-colors hover:bg-primary/10" href="#contact">
-            contact()
-          </a>
+          {sectionNavItems.map((item) => (
+            <a
+              key={item.href}
+              className="rounded-full px-3 py-1 font-mono text-[11px] font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+              href={item.href}
+            >
+              {item.label}
+            </a>
+          ))}
           <ThemeToggle />
         </nav>
       </header>
@@ -100,7 +109,7 @@ export default function Home() {
       <main className="relative z-10 mx-auto max-w-5xl px-5 pt-32 pb-20 sm:px-8">
         
         {/* Hero Section (Asymmetric) */}
-        <section id="top" className="grid gap-12 pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <section id="top" className="section-anchor grid gap-12 pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-8">
             <div className="space-y-5">
               <div className="flex items-center gap-2">
@@ -180,8 +189,24 @@ export default function Home() {
 
         <Separator className="my-12 border-dashed opacity-50" />
 
+        <section id="playground" className="section-anchor py-12">
+          <SectionHeading
+            eyebrow="interactive.lab"
+            icon={Gamepad2}
+            title="Mini game playground"
+            description="Quick touch-first game. Built for mobile and keyboard-free play."
+          />
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2 lg:items-start">
+            <SignalDodge />
+            <ReflexGrid />
+          </div>
+        </section>
+
+        <Separator className="my-12 border-dashed opacity-50" />
+
         {/* About Section (Bento Layout) */}
-        <section id="about" className="py-12">
+        <section id="about" className="section-anchor py-12">
           <SectionHeading
             eyebrow="sys.info"
             icon={Boxes}
@@ -258,7 +283,7 @@ export default function Home() {
         <Separator className="my-12 border-dashed opacity-50" />
 
         {/* Projects Section */}
-        <section id="projects" className="py-12">
+        <section id="projects" className="section-anchor py-12">
           <SectionHeading
             eyebrow="repositories"
             icon={Sparkles}
@@ -344,7 +369,7 @@ export default function Home() {
         <Separator className="my-12 border-dashed opacity-50" />
 
         {/* Skills Section */}
-        <section id="skills" className="py-12">
+        <section id="skills" className="section-anchor py-12">
           <SectionHeading
             eyebrow="tech.stack"
             icon={ChartColumnBig}
@@ -376,7 +401,7 @@ export default function Home() {
         </section>
 
         {/* Footer / Contact */}
-        <section id="contact" className="mt-20">
+        <section id="contact" className="section-anchor mt-20">
           <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 sm:p-12">
             {/* Decorative background blur */}
             <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
