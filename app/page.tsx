@@ -37,31 +37,33 @@ import { TypewriterText } from "@/components/typewriter-text";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { SiGithub, SiGitlab, SiX } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
 const profileLinks =[
-  {
-    label: "GitLab",
-    href: "https://gitlab.com/argonurcahyo",
-    description: "Additional portfolio repositories.",
-    icon: FolderKanban,
-  },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/argo-nurcahyo-6b2538170/",
     description: "Career profile.",
-    icon: Globe2,
+    icon: FaLinkedin,
   },
   {
-    label: "X / @argonurcahyo",
+    label: "@argonurcahyo",
     href: "https://twitter.com/argonurcahyo",
     description: "Quick updates.",
-    icon: Send,
+    icon: SiX,
   },
   {
-    label: "Archive",
+    label: "Github",
     href: "https://github.com/argonurcahyo?tab=repositories",
-    description: "All repositories.",
-    icon: FolderKanban,
+    description: "Portfolio repositories and experiments.",
+    icon: SiGithub,
+  },
+  {
+    label: "GitLab",
+    href: "https://gitlab.com/argonurcahyo",
+    description: "Additional portfolio repositories.",
+    icon: SiGitlab,
   },
 ];
 
@@ -400,7 +402,7 @@ export default function Home() {
                   Start with the code.
                 </h2>
                 <p className="max-w-sm text-muted-foreground leading-relaxed">
-                  GitLab for projects, LinkedIn for profile.
+                  GitHub for projects, LinkedIn for profile.
                 </p>
               </div>
 
