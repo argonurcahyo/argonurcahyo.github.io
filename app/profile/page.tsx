@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { AnimatedSection } from "@/components/animated-section";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -90,6 +91,7 @@ export default function ProfilePage() {
       </header>
 
       <main className="relative z-10 mx-auto max-w-5xl px-5 pt-32 pb-20 sm:px-8">
+        <AnimatedSection>
         <section className="grid gap-8 rounded-3xl border border-border/50 bg-card/70 p-7 shadow-[0_16px_50px_rgba(3,8,18,0.24)] sm:p-10 lg:grid-cols-[1.4fr_0.8fr]">
           <div className="space-y-6">
             <Badge className="w-fit rounded-full bg-primary/15 text-primary">Detailed Profile</Badge>
@@ -138,9 +140,11 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </section>
+        </AnimatedSection>
 
         <Separator className="my-10 border-dashed opacity-50" />
 
+        <AnimatedSection delay={0.1}>
         <section id="details" className="grid gap-6 lg:grid-cols-2">
           <Card className="border-border/50 bg-muted/10 shadow-none">
             <CardHeader>
@@ -186,7 +190,9 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </section>
+        </AnimatedSection>
 
+        <AnimatedSection delay={0.2}>
         <section className="mt-6">
           <Card className="border-dashed border-border/60 bg-transparent shadow-none">
             <CardHeader>
@@ -205,7 +211,9 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </section>
+        </AnimatedSection>
 
+        <AnimatedSection delay={0.3}>
         <section className="mt-10 flex flex-wrap gap-3">
           <Link href="/" className="rounded-full border border-border/60 bg-background px-5 py-2 font-mono text-xs font-medium hover:bg-muted/40">
             Back to homepage
@@ -219,10 +227,13 @@ export default function ProfilePage() {
             Open GitHub Profile
           </a>
         </section>
+        </AnimatedSection>
 
+        <AnimatedSection delay={0.4}>
         <p className="mt-8 text-xs text-muted-foreground">
           Note: LinkedIn profile content is partially unavailable to automated public scraping, so detailed fields are intentionally marked as placeholders.
         </p>
+        </AnimatedSection>
       </main>
     </div>
   );

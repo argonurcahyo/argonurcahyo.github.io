@@ -14,7 +14,6 @@ import {
   Send,
   Smartphone,
   Sparkles,
-  Terminal,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,12 +26,14 @@ import {
   skillGroups,
   supportingProjects,
 } from "@/app/portfolio-data";
+import { AnimatedSection } from "@/components/animated-section";
 import { ProjectCard } from "@/components/project-card";
 import { ReflexGrid } from "@/components/reflex-grid";
 import { SectionHeading } from "@/components/section-heading";
+import { SiteHeader } from "@/components/site-header";
 import { SignalDodge } from "@/components/signal-dodge";
 import { TechIcon } from "@/components/tech-icon";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { TypewriterText } from "@/components/typewriter-text";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -66,49 +67,18 @@ const profileLinks =[
 
 const skillIcons =[Braces, Map, Smartphone, Database, RadioTower, ChartColumnBig];
 
-const sectionNavItems = [
-  { href: "#top", label: "boot()" },
-  { href: "#playground", label: "runGames()" },
-  { href: "#about", label: "describeWork()" },
-  { href: "#projects", label: "projects[]" },
-  { href: "#skills", label: "stack.map()" },
-  { href: "#contact", label: "contact()" },
-];
-
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <div className="relative min-h-screen w-full overflow-x-clip bg-background text-foreground selection:bg-primary/20 selection:text-primary">
       {/* Subtle Dot Pattern Background */}
       <div className="pointer-events-none fixed inset-0 z-0 h-full w-full bg-[radial-gradient(rgba(148,163,184,0.24)_1px,transparent_1px)] bg-size-[16px_16px] opacity-45" />
 
-      {/* Floating Pill Navigation */}
-      <header className="fixed inset-x-0 top-6 z-50 mx-auto flex w-[min(96vw,1040px)] items-center justify-between rounded-full border border-border/70 bg-background/78 px-3 py-2 shadow-[0_10px_28px_rgba(3,8,18,0.45)] backdrop-blur-md sm:px-4">
-        <a href="#top" className="mr-6 flex items-center gap-2 transition-opacity hover:opacity-80">
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <Terminal size={14} />
-          </div>
-          <span className="font-mono text-sm font-semibold tracking-tight">argo.dev</span>
-        </a>
-        <nav className="flex max-w-[74vw] items-center gap-1 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-2">
-          <Link className="rounded-full border border-border/55 bg-muted/15 px-3 py-1 font-mono text-[10px] font-medium tracking-[0.18em] text-primary transition-colors hover:bg-primary/10" href="/profile">
-            import profile
-          </Link>
-          {sectionNavItems.map((item) => (
-            <a
-              key={item.href}
-              className="rounded-full px-3 py-1 font-mono text-[11px] font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
-              href={item.href}
-            >
-              {item.label}
-            </a>
-          ))}
-          <ThemeToggle />
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main className="relative z-10 mx-auto max-w-5xl px-5 pt-32 pb-20 sm:px-8">
         
         {/* Hero Section (Asymmetric) */}
+        <AnimatedSection>
         <section id="top" className="section-anchor grid gap-12 pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-8">
             <div className="space-y-5">
@@ -122,7 +92,9 @@ export default function Home() {
                 </p>
               </div>
               <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
-                I build web products and side projects.
+                <TypewriterText delay={0.1}>
+                  I build web products and side projects.
+                </TypewriterText>
               </h1>
               <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
                 I mainly work on <span className="font-medium text-foreground">Laravel</span> apps.
@@ -152,24 +124,29 @@ export default function Home() {
 
           {/* Right side sticker panel */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2 relative py-2">
-              <div className="pointer-events-none absolute -right-8 top-0 size-44 rounded-full border border-primary/20 opacity-60 animate-spin [animation-duration:16s]" />
-              <div className="pointer-events-none absolute -left-4 bottom-0 size-40 rounded-full bg-primary/10 blur-2xl" />
+            <div className="sm:col-span-2 relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-5">
+              <div className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-primary/12 blur-2xl" />
+              <div className="pointer-events-none absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-accent/10 blur-2xl" />
 
-              <div className="relative z-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                <div className="relative w-fit animate-pulse">
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="relative shrink-0">
                   <Image
                     src="/argo-sticker.webp"
                     alt="Argo sticker"
                     width={220}
                     height={220}
-                    className="h-32 w-32 rounded-2xl border border-border/80 bg-background object-cover shadow-[0_12px_28px_rgba(3,8,18,0.45)] sm:h-36 sm:w-36"
+                    className="h-24 w-24 rounded-2xl border border-border/70 bg-background/90 object-cover shadow-[0_12px_30px_rgba(3,8,18,0.35)] sm:h-28 sm:w-28"
                   />
-                  <span className="absolute -right-3 -top-3 rounded-full border border-primary/35 bg-primary/20 px-2 py-0.5 font-mono text-[10px] text-primary">
-                    live
+                  <span className="absolute -right-2 -top-2 inline-flex items-center rounded-full border border-primary/40 bg-background/90 px-2 py-0.5 font-mono text-[10px] font-semibold text-primary">
+                    online
                   </span>
                 </div>
-                <p className="max-w-xs text-sm text-foreground/85">GAME ON!</p>
+
+                <div className="space-y-1.5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">playground status</p>
+                  <p className="text-lg font-semibold leading-tight text-foreground">Game on, systems ready.</p>
+                  <p className="text-xs leading-relaxed text-muted-foreground">Tap <code>runGames()</code> to try touch-first mini interactions.</p>
+                </div>
               </div>
             </div>
 
@@ -186,9 +163,11 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </AnimatedSection>
 
         <Separator className="my-12 border-dashed opacity-50" />
 
+        <AnimatedSection delay={0.1}>
         <section id="playground" className="section-anchor py-12">
           <SectionHeading
             eyebrow="interactive.lab"
@@ -202,10 +181,12 @@ export default function Home() {
             <ReflexGrid />
           </div>
         </section>
+        </AnimatedSection>
 
         <Separator className="my-12 border-dashed opacity-50" />
 
         {/* About Section (Bento Layout) */}
+        <AnimatedSection delay={0.2}>
         <section id="about" className="section-anchor py-12">
           <SectionHeading
             eyebrow="sys.info"
@@ -279,6 +260,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </AnimatedSection>
 
         <Separator className="my-12 border-dashed opacity-50" />
 
@@ -369,6 +351,7 @@ export default function Home() {
         <Separator className="my-12 border-dashed opacity-50" />
 
         {/* Skills Section */}
+        <AnimatedSection delay={0.4}>
         <section id="skills" className="section-anchor py-12">
           <SectionHeading
             eyebrow="tech.stack"
@@ -399,8 +382,10 @@ export default function Home() {
             })}
           </div>
         </section>
+        </AnimatedSection>
 
         {/* Footer / Contact */}
+        <AnimatedSection delay={0.5}>
         <section id="contact" className="section-anchor mt-20">
           <div className="relative overflow-hidden rounded-3xl border border-border/50 bg-card p-8 sm:p-12">
             {/* Decorative background blur */}
@@ -444,6 +429,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </AnimatedSection>
 
       </main>
     </div>
