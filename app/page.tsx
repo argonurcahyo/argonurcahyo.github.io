@@ -3,20 +3,25 @@ import {
   Boxes,
   Braces,
   ChartColumnBig,
+  Database,
   FolderKanban,
   GitFork,
   Globe2,
-  Layers3,
+  ImageOff,
+  Map,
   RadioTower,
   Send,
+  Smartphone,
   Sparkles,
-  Telescope,
   Terminal,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import {
   dailyWork,
   featuredProjects,
+  projectImageMap,
   sideQuests,
   skillGroups,
   supportingProjects,
@@ -24,16 +29,17 @@ import {
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
 import { TechIcon } from "@/components/tech-icon";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 const profileLinks =[
   {
-    label: "GitHub",
-    href: "https://github.com/argonurcahyo",
-    description: "Code and project details.",
-    icon: GitFork,
+    label: "GitLab",
+    href: "https://gitlab.com/argonurcahyo",
+    description: "Additional portfolio repositories.",
+    icon: FolderKanban,
   },
   {
     label: "LinkedIn",
@@ -55,13 +61,7 @@ const profileLinks =[
   },
 ];
 
-const statCards =[
-  { label: "Featured builds", value: "3", icon: Layers3 },
-  { label: "Daily work apps", value: `${dailyWork.length}`, icon: Telescope },
-  { label: "Side quests", value: `${sideQuests.length}`, icon: Sparkles },
-];
-
-const skillIcons =[Braces, RadioTower, ChartColumnBig];
+const skillIcons =[Braces, Map, Smartphone, Database, RadioTower, ChartColumnBig];
 
 export default function Home() {
   return (
@@ -78,6 +78,9 @@ export default function Home() {
           <span className="font-mono text-sm font-semibold tracking-tight">argo.dev</span>
         </a>
         <nav className="flex items-center gap-1 sm:gap-4">
+          <Link className="rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" href="/profile">
+            profile
+          </Link>
           <a className="rounded-full px-3 py-1 font-mono text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground" href="#about">
             _about
           </a>
@@ -90,6 +93,7 @@ export default function Home() {
           <a className="rounded-full px-3 py-1 font-mono text-xs font-medium text-primary transition-colors hover:bg-primary/10" href="#contact">
             contact()
           </a>
+          <ThemeToggle />
         </nav>
       </header>
 
@@ -124,6 +128,11 @@ export default function Home() {
                   Explore work <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
+              <Button asChild variant="secondary" className="rounded-full px-6 font-mono text-xs">
+                <Link href="/profile">
+                  Profile
+                </Link>
+              </Button>
               <Button asChild variant="outline" className="rounded-full border-dashed px-6 font-mono text-xs">
                 <a href="https://github.com/argonurcahyo" target="_blank" rel="noreferrer">
                   <GitFork className="mr-2 h-4 w-4" /> github
@@ -132,29 +141,33 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right side bento box */}
+          {/* Right side sticker panel */}
           <div className="grid gap-4 sm:grid-cols-2">
-            {statCards.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <Card key={item.label} className={`border-border/50 bg-muted/20 shadow-none ${i === 0 ? "sm:col-span-2" : ""}`}>
-                  <CardContent className="flex flex-col gap-4 p-5">
-                    <div className="flex items-center justify-between">
-                      <Icon className="h-5 w-5 text-muted-foreground/50" />
-                      <span className="font-mono text-xs text-muted-foreground">0{i + 1}</span>
-                    </div>
-                    <div>
-                      <div className="font-mono text-3xl font-light">{item.value}</div>
-                      <div className="mt-1 text-sm font-medium text-muted-foreground">{item.label}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            <div className="sm:col-span-2 relative py-2">
+              <div className="pointer-events-none absolute -right-8 top-0 size-44 rounded-full border border-primary/20 opacity-60 animate-spin [animation-duration:16s]" />
+              <div className="pointer-events-none absolute -left-4 bottom-0 size-40 rounded-full bg-primary/10 blur-2xl" />
+
+              <div className="relative z-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <div className="relative w-fit animate-pulse">
+                  <Image
+                    src="/argo-sticker.webp"
+                    alt="Argo sticker"
+                    width={220}
+                    height={220}
+                    className="h-32 w-32 rounded-2xl border border-border/80 bg-background object-cover shadow-[0_12px_28px_rgba(3,8,18,0.45)] sm:h-36 sm:w-36"
+                  />
+                  <span className="absolute -right-3 -top-3 rounded-full border border-primary/35 bg-primary/20 px-2 py-0.5 font-mono text-[10px] text-primary">
+                    live
+                  </span>
+                </div>
+                <p className="max-w-xs text-sm text-foreground/85">GAME ON!</p>
+              </div>
+            </div>
+
             <div className="sm:col-span-2 rounded-xl border border-dashed border-border/60 bg-transparent p-5">
               <p className="mb-3 font-mono text-xs text-muted-foreground">{"// Current stack focus"}</p>
               <div className="flex flex-wrap gap-2">
-                {["Laravel", "Next.js", "TypeScript", "React", "Tooling"].map((tag) => (
+                {["Laravel", "Next.js", "TypeScript", "React", "Python"].map((tag) => (
                   <span key={tag} className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/35 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground">
                     <TechIcon tech={tag} className="size-3" />
                     {tag}
@@ -210,8 +223,23 @@ export default function Home() {
               <div className="grid gap-4 sm:grid-cols-3">
                 {dailyWork.map((item) => (
                   <a key={item.title} href={item.url} target="_blank" rel="noreferrer" className="group block space-y-3 rounded-xl border border-border/40 bg-muted/20 p-4 transition-colors hover:bg-muted/40">
+                    <div className="relative overflow-hidden rounded-lg border border-border/60 bg-muted/35">
+                      {projectImageMap[item.title] ? (
+                        <Image
+                          src={projectImageMap[item.title]}
+                          alt={`${item.title} screenshot`}
+                          width={1200}
+                          height={675}
+                          className="aspect-video h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex aspect-video items-center justify-center">
+                          <span className="font-mono text-[10px] text-muted-foreground">Image placeholder</span>
+                        </div>
+                      )}
+                    </div>
                     <h4 className="font-medium group-hover:text-primary">{item.title}</h4>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{item.summary}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
                     <div className="flex flex-wrap gap-1.5 pt-2">
                       {item.stack.map((s) => (
                         <span key={s} className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground before:content-['#']">
@@ -240,7 +268,12 @@ export default function Home() {
 
           <div className="mt-10 space-y-6">
             {featuredProjects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+              <ProjectCard
+                key={project.title}
+                project={project}
+                imageSrc={project.imageSrc}
+                imageAlt={`${project.title} project screenshot`}
+              />
             ))}
           </div>
 
@@ -253,6 +286,12 @@ export default function Home() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {sideQuests.map((item) => (
                     <div key={item.title} className="space-y-2 rounded-xl border border-border/40 bg-background/50 p-4">
+                      <div className="flex aspect-video items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20">
+                        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground">
+                          <ImageOff className="size-3.5" />
+                          add image later
+                        </span>
+                      </div>
                       <h4 className="font-medium">{item.title}</h4>
                       <p className="text-xs text-muted-foreground">{item.summary}</p>
                     </div>
@@ -269,11 +308,28 @@ export default function Home() {
                 <div className="flex flex-col gap-4">
                   {supportingProjects.map((project) => (
                     <a key={project.title} href={project.repoUrl} target="_blank" rel="noreferrer" className="group flex items-center justify-between rounded-lg p-2 hover:bg-muted/30">
-                      <div className="space-y-1">
-                        <h4 className="text-sm font-medium group-hover:underline">{project.title}</h4>
-                        <div className="flex gap-2 font-mono text-[10px] text-muted-foreground">
-                          <span>{project.status}</span>
-                          <span>{project.year}</span>
+                      <div className="flex items-center gap-3">
+                        <div className="relative h-14 w-20 overflow-hidden rounded-md border border-border/60 bg-muted/25">
+                          {projectImageMap[project.title] ? (
+                            <Image
+                              src={projectImageMap[project.title]}
+                              alt={`${project.title} screenshot`}
+                              width={320}
+                              height={180}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <ImageOff className="size-4 text-muted-foreground/75" />
+                            </div>
+                          )}
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="text-sm font-medium group-hover:underline">{project.title}</h4>
+                          <div className="flex gap-2 font-mono text-[10px] text-muted-foreground">
+                            <span>{project.status}</span>
+                            <span>{project.year}</span>
+                          </div>
                         </div>
                       </div>
                       <ArrowRight className="h-4 w-4 text-muted-foreground/50 transition-transform group-hover:-translate-x-1" />
@@ -298,7 +354,7 @@ export default function Home() {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {skillGroups.map((group, index) => {
-              const Icon = skillIcons[index];
+              const Icon = skillIcons[index] ?? Braces;
               return (
                 <div key={group.title} className="rounded-2xl border border-border/50 bg-muted/10 p-6">
                   <div className="mb-4 flex items-center gap-3">
@@ -334,7 +390,7 @@ export default function Home() {
                   Start with the code.
                 </h2>
                 <p className="max-w-sm text-muted-foreground leading-relaxed">
-                  GitHub for projects, LinkedIn for profile.
+                  GitLab for projects, LinkedIn for profile.
                 </p>
               </div>
 

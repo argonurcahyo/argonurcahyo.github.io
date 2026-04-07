@@ -1,4 +1,5 @@
 import { ArrowUpRight, GitFork, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 import type { Project } from "@/app/portfolio-data";
 import { TechIcon } from "@/components/tech-icon";
@@ -8,9 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ProjectCardProps = {
   project: Project;
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, imageSrc, imageAlt }: ProjectCardProps) {
   return (
     <Card className="group overflow-hidden border-border/80 bg-card/95">
       <CardHeader className="gap-5 border-b border-border/80 bg-muted/30 p-6 sm:p-8">
@@ -58,6 +61,24 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
       </CardHeader>
+
+      <div className="px-6 pt-6 sm:px-8">
+        <div className="relative overflow-hidden rounded-xl border border-border/70 bg-muted/30">
+          {imageSrc ? (
+            <Image
+              src={imageSrc}
+              alt={imageAlt ?? `${project.title} screenshot`}
+              width={1400}
+              height={788}
+              className="aspect-video h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex aspect-video items-center justify-center bg-[linear-gradient(135deg,rgba(76,201,240,0.08),rgba(15,23,42,0.16))]">
+              <p className="font-mono text-xs text-muted-foreground">Image placeholder</p>
+            </div>
+          )}
+        </div>
+      </div>
 
       <CardContent className="space-y-6 px-6 pb-8 pt-6 sm:px-8">
         <div className="flex flex-wrap gap-2.5">

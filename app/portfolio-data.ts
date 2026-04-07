@@ -4,6 +4,7 @@ export type Project = {
   summary: string;
   repoUrl: string;
   liveUrl?: string;
+  imageSrc?: string;
   stack: string[];
   highlights: string[];
   status: string;
@@ -23,13 +24,30 @@ export type PlaceholderAsset = {
 
 export const featuredProjects: Project[] = [
   {
+    title: "Argo💖Vivi",
+    year: "2026",
+    summary:
+      "A personal web project for reminiscing my long-distance relationship journey with my wife.",
+    repoUrl: "https://github.com/argonurcahyo/argovivi",
+    liveUrl: "https://argovivi.vercel.app/",
+    imageSrc: "/ldm.png",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    highlights: [
+      "Personal timeline-style storytelling in a simple web format.",
+      "Focus on meaningful memories instead of heavy feature scope.",
+      "Built as a private-feel product with clean, lightweight UI.",
+    ],
+    status: "Personal story web app",
+  },
+  {
     title: "Wiryo",
     year: "2026",
     summary:
       "A family tree app built with Next.js App Router. It is one of the clearest examples of me shipping a polished product, not just a quick prototype.",
     repoUrl: "https://github.com/argonurcahyo/wiryo",
     liveUrl: "https://mbahwiryo.vercel.app/",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "Turso/libSQL"],
+    imageSrc: "/wiryo.png",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Turso"],
     highlights: [
       "Interactive tree view with search, fullscreen mode, and root filtering.",
       "CRUD flows for family data with relationship validation.",
@@ -43,7 +61,8 @@ export const featuredProjects: Project[] = [
     summary:
       "A browser-tooling side project that captures stream URLs and hands them off to a lightweight dashboard for download workflows.",
     repoUrl: "https://github.com/argonurcahyo/videostream-downloader",
-    stack: ["TypeScript", "Chrome Extension", "Next.js 15", "JavaScript", "Python"],
+    imageSrc: "/vsd.png",
+    stack: ["TypeScript", "Chrome Extension", "Next.js", "JavaScript", "Python"],
     highlights: [
       "Combines a Manifest V3 extension with a Next.js dashboard.",
       "Covers capture, listing, logging, and download flows in one toolchain.",
@@ -58,6 +77,7 @@ export const featuredProjects: Project[] = [
       "A movie catalog app powered by TMDB API. This is the project I keep coming back to when I want to refine browsing and UI flows.",
     repoUrl: "https://github.com/argonurcahyo/nonton-apa-ya",
     liveUrl: "http://nonton-apa-ya.vercel.app/",
+    imageSrc: "/nonton-apa-ya.png",
     stack: ["React", "JavaScript", "Tailwind CSS", "TMDB API"],
     highlights: [
       "Started from training, then kept evolving as a real side project.",
@@ -115,9 +135,9 @@ export const dailyWork: WorkSnapshot[] = [
     stack: ["PHP", "Laravel", "Public-facing app"],
   },
   {
-    title: "edupromstat.bps.go.id",
+    title: "edupromstat.web.bps.go.id",
     summary: "Another Laravel-based product where the work is more about keeping useful services running well than making noise about them.",
-    url: "https://edupromstat.bps.go.id",
+    url: "https://edupromstat.web.bps.go.id",
     stack: ["PHP", "Laravel", "Maintenance and delivery"],
   },
 ];
@@ -135,6 +155,12 @@ export const sideQuests: WorkSnapshot[] = [
   },
 ];
 
+export const projectImageMap: Record<string, string> = {
+  "perpustakaan.bps.go.id": "/perpus-bps.png",
+  "pojokstatistik.bps.go.id": "/pojok.png",
+  "edupromstat.web.bps.go.id": "/edupromstat.png",
+};
+
 export const placeholderAssets: PlaceholderAsset[] = [
   {
     title: "Profile photo placeholder",
@@ -150,6 +176,18 @@ export const skillGroups = [
   {
     title: "Web Engineering",
     items: ["PHP", "Laravel", "Next.js", "React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    title: "GIS and Mapping",
+    items: ["GIS", "QGIS", "Map analysis", "Spatial data", "Thematic maps"],
+  },
+  {
+    title: "Mobile Development Basics",
+    items: ["Java", "Android", "Kotlin", "Flutter"],
+  },
+  {
+    title: "Backend and Database Basics",
+    items: ["Golang", "MySQL", "PostgreSQL", "SQLite"],
   },
   {
     title: "Experiments Beyond Web",

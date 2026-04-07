@@ -17,6 +17,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://argonurcahyo.github.io"),
   title: "Argo Nurcahyo | Software Engineer",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/argo-sticker.webp",
+  },
   description:
     "Portfolio of Argo Nurcahyo, a software engineer focused on web development with interests in AI, IoT, mobile apps, and data science.",
   openGraph: {
@@ -43,8 +48,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${jetbrainsMono.variable} h-full scroll-smooth`}
+      suppressHydrationWarning
+      className={`${manrope.variable} ${jetbrainsMono.variable} h-full scroll-smooth dark`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(() => { try { const t = localStorage.getItem('theme'); if (t === 'light') document.documentElement.classList.remove('dark'); if (t === 'dark') document.documentElement.classList.add('dark'); } catch (_) {} })();",
+          }}
+        />
+      </head>
       <body className="min-h-full">{children}</body>
     </html>
   );
