@@ -2,6 +2,7 @@ import { ArrowUpRight, GitFork, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 import type { Project } from "@/app/portfolio-data";
+import { HoverLift, StaggerContainer, StaggerItem } from "@/components/motion-primitives";
 import { TechIcon } from "@/components/tech-icon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,8 +16,11 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, imageSrc, imageAlt }: ProjectCardProps) {
   return (
-    <Card className="group overflow-hidden border-border/80 bg-card/95">
-      <CardHeader className="gap-5 border-b border-border/80 bg-muted/30 p-6 sm:p-8">
+    <HoverLift>
+      <Card className="group overflow-hidden border-border/80 bg-card/95">
+        <StaggerContainer className="w-full" once amount={0.3}>
+          <StaggerItem>
+            <CardHeader className="gap-5 border-b border-border/80 bg-muted/30 p-6 sm:p-8">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3 text-sm text-foreground/80">
@@ -60,54 +64,61 @@ export function ProjectCard({ project, imageSrc, imageAlt }: ProjectCardProps) {
             ) : null}
           </div>
         </div>
-      </CardHeader>
+            </CardHeader>
+          </StaggerItem>
 
-      <div className="px-6 pt-6 sm:px-8">
-        <div className="relative overflow-hidden rounded-xl border border-border/70 bg-muted/30">
-          {imageSrc ? (
-            <Image
-              src={imageSrc}
-              alt={imageAlt ?? `${project.title} screenshot`}
-              width={1400}
-              height={788}
-              className="aspect-video h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex aspect-video items-center justify-center bg-[linear-gradient(135deg,rgba(76,201,240,0.08),rgba(15,23,42,0.16))]">
-              <p className="font-mono text-xs text-muted-foreground">Image placeholder</p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <CardContent className="space-y-6 px-6 pb-8 pt-6 sm:px-8">
-        <div className="flex flex-wrap gap-2.5">
-          {project.stack.map((item) => (
-            <Badge
-              key={item}
-              variant="outline"
-              className="rounded-md border-border/70 bg-muted/35 px-3 py-1.5 text-[0.68rem] text-foreground/85"
-            >
-              <TechIcon tech={item} className="size-3.5" />
-              {item}
-            </Badge>
-          ))}
-        </div>
-
-        <ul className="grid gap-3 md:grid-cols-3">
-          {project.highlights.map((item, index) => (
-            <li
-              key={item}
-              className="rounded-xl border border-border/70 bg-muted/30 p-4 text-sm leading-7 text-foreground/80"
-            >
-              <div className="mb-3 flex size-9 items-center justify-center rounded-md bg-primary/10 text-primary">
-                <span className="text-xs font-bold">0{index + 1}</span>
+          <StaggerItem>
+            <div className="px-6 pt-6 sm:px-8">
+              <div className="relative overflow-hidden rounded-xl border border-border/70 bg-muted/30">
+                {imageSrc ? (
+                  <Image
+                    src={imageSrc}
+                    alt={imageAlt ?? `${project.title} screenshot`}
+                    width={1400}
+                    height={788}
+                    className="aspect-video h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="flex aspect-video items-center justify-center bg-[linear-gradient(135deg,rgba(76,201,240,0.08),rgba(15,23,42,0.16))]">
+                    <p className="font-mono text-xs text-muted-foreground">Image placeholder</p>
+                  </div>
+                )}
               </div>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
+            </div>
+          </StaggerItem>
+
+          <StaggerItem>
+            <CardContent className="space-y-6 px-6 pb-8 pt-6 sm:px-8">
+              <div className="flex flex-wrap gap-2.5">
+                {project.stack.map((item) => (
+                  <Badge
+                    key={item}
+                    variant="outline"
+                    className="rounded-md border-border/70 bg-muted/35 px-3 py-1.5 text-[0.68rem] text-foreground/85"
+                  >
+                    <TechIcon tech={item} className="size-3.5" />
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+
+              <ul className="grid gap-3 md:grid-cols-3">
+                {project.highlights.map((item, index) => (
+                  <li
+                    key={item}
+                    className="rounded-xl border border-border/70 bg-muted/30 p-4 text-sm leading-7 text-foreground/80"
+                  >
+                    <div className="mb-3 flex size-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+                      <span className="text-xs font-bold">0{index + 1}</span>
+                    </div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </StaggerItem>
+        </StaggerContainer>
+      </Card>
+    </HoverLift>
   );
 }

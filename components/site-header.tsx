@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Terminal, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -85,35 +86,51 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {isMenuOpen ? (
-        <div className="fixed inset-0 z-40 bg-background/55 backdrop-blur-sm md:hidden" onClick={closeMenu} aria-hidden="true" />
-      ) : null}
-
-      <div
-        className={`fixed left-1/2 top-20 z-50 w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-border/70 bg-background/95 p-4 shadow-[0_14px_34px_rgba(3,8,18,0.4)] backdrop-blur-md transition-all duration-200 md:hidden ${
-          isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        <nav className="flex flex-col gap-2">
-          <Link
-            className="rounded-xl border border-border/55 bg-muted/20 px-4 py-2 font-mono text-xs font-semibold tracking-[0.14em] text-primary"
-            href="/profile"
+      <AnimatePresence>
+        {isMenuOpen ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-background/55 backdrop-blur-sm md:hidden"
             onClick={closeMenu}
+            aria-hidden="true"
+          />
+        ) : null}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isMenuOpen ? (
+          <motion.div
+            initial={{ opacity: 0, y: -12, scale: 0.98, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -8, scale: 0.98, filter: "blur(4px)" }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed left-1/2 top-20 z-50 w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-border/70 bg-background/95 p-4 shadow-[0_14px_34px_rgba(3,8,18,0.4)] backdrop-blur-md md:hidden"
           >
-            import profile
-          </Link>
-          {sectionNavItems.map((item) => (
-            <a
-              key={item.href}
-              className="rounded-xl px-4 py-2 font-mono text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
-              href={item.href}
-              onClick={closeMenu}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
+            <nav className="flex flex-col gap-2">
+              <Link
+                className="rounded-xl border border-border/55 bg-muted/20 px-4 py-2 font-mono text-xs font-semibold tracking-[0.14em] text-primary"
+                href="/profile"
+                onClick={closeMenu}
+              >
+                import profile
+              </Link>
+              {sectionNavItems.map((item) => (
+                <a
+                  key={item.href}
+                  className="rounded-xl px-4 py-2 font-mono text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                  href={item.href}
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <div
         className="fixed right-4 bottom-4 z-80 md:hidden"

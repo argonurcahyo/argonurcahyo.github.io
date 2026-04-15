@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { type ReactNode } from "react";
+
+import { BlurFade } from "@/components/motion-primitives";
 
 type AnimatedSectionProps = {
   children: ReactNode;
@@ -11,18 +12,8 @@ type AnimatedSectionProps = {
 
 export function AnimatedSection({ children, delay = 0, className = "" }: AnimatedSectionProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.5,
-        delay,
-        ease: "easeOut",
-      }}
-      viewport={{ once: true, amount: 0.2 }}
-      className={`w-full ${className}`}
-    >
+    <BlurFade delay={delay} className={className}>
       {children}
-    </motion.div>
+    </BlurFade>
   );
 }

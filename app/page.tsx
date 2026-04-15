@@ -4,14 +4,11 @@ import {
   Braces,
   ChartColumnBig,
   Database,
-  FolderKanban,
   Gamepad2,
   GitFork,
-  Globe2,
   ImageOff,
   Map,
   RadioTower,
-  Send,
   Smartphone,
   Sparkles,
 } from "lucide-react";
@@ -27,6 +24,7 @@ import {
   supportingProjects,
 } from "@/app/portfolio-data";
 import { AnimatedSection } from "@/components/animated-section";
+import { BlurFade, HoverLift, StaggerContainer, StaggerItem } from "@/components/motion-primitives";
 import { ProjectCard } from "@/components/project-card";
 import { ReflexGrid } from "@/components/reflex-grid";
 import { SectionHeading } from "@/components/section-heading";
@@ -82,9 +80,10 @@ export default function Home() {
         {/* Hero Section (Asymmetric) */}
         <AnimatedSection>
         <section id="top" className="section-anchor grid gap-12 pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div className="space-y-8">
-            <div className="space-y-5">
-              <div className="flex items-center gap-2">
+          <StaggerContainer className="space-y-8" stagger={0.1}>
+            <StaggerItem>
+              <div className="space-y-5">
+                <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -104,29 +103,43 @@ export default function Home() {
                 TypeScript, and browser tooling.
               </p>
             </div>
+            </StaggerItem>
 
-            <div className="flex flex-wrap items-center gap-4">
-              <Button asChild className="rounded-full px-6 font-mono text-xs">
-                <a href="#projects">
-                  Explore work <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-              <Button asChild variant="secondary" className="rounded-full px-6 font-mono text-xs">
-                <Link href="/profile">
-                  Profile
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="rounded-full border-dashed px-6 font-mono text-xs">
-                <a href="https://github.com/argonurcahyo" target="_blank" rel="noreferrer">
-                  <GitFork className="mr-2 h-4 w-4" /> github
-                </a>
-              </Button>
-            </div>
-          </div>
+            <StaggerContainer className="flex flex-wrap items-center gap-4" delay={0.05} stagger={0.08} once>
+              <StaggerItem className="w-fit">
+                <HoverLift>
+                  <Button asChild className="rounded-full px-6 font-mono text-xs">
+                    <a href="#projects">
+                      Explore work <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </HoverLift>
+              </StaggerItem>
+              <StaggerItem className="w-fit">
+                <HoverLift>
+                  <Button asChild variant="secondary" className="rounded-full px-6 font-mono text-xs">
+                    <Link href="/profile">
+                      Profile
+                    </Link>
+                  </Button>
+                </HoverLift>
+              </StaggerItem>
+              <StaggerItem className="w-fit">
+                <HoverLift>
+                  <Button asChild variant="outline" className="rounded-full border-dashed px-6 font-mono text-xs">
+                    <a href="https://github.com/argonurcahyo" target="_blank" rel="noreferrer">
+                      <GitFork className="mr-2 h-4 w-4" /> github
+                    </a>
+                  </Button>
+                </HoverLift>
+              </StaggerItem>
+            </StaggerContainer>
+          </StaggerContainer>
 
           {/* Right side sticker panel */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="sm:col-span-2 relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-5">
+          <StaggerContainer className="grid gap-4 sm:grid-cols-2" delay={0.1} stagger={0.1}>
+            <StaggerItem className="sm:col-span-2">
+              <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/55 p-5">
               <div className="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full bg-primary/12 blur-2xl" />
               <div className="pointer-events-none absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-accent/10 blur-2xl" />
 
@@ -150,20 +163,25 @@ export default function Home() {
                   <p className="text-xs leading-relaxed text-muted-foreground">Tap <code>runGames()</code> to try touch-first mini interactions.</p>
                 </div>
               </div>
-            </div>
-
-            <div className="sm:col-span-2 rounded-xl border border-dashed border-border/60 bg-transparent p-5">
-              <p className="mb-3 font-mono text-xs text-muted-foreground">{"// Current stack focus"}</p>
-              <div className="flex flex-wrap gap-2">
-                {["Laravel", "Next.js", "TypeScript", "React", "Python"].map((tag) => (
-                  <span key={tag} className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/35 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground">
-                    <TechIcon tech={tag} className="size-3" />
-                    {tag}
-                  </span>
-                ))}
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+
+            <StaggerItem className="sm:col-span-2">
+              <div className="rounded-xl border border-dashed border-border/60 bg-transparent p-5">
+              <p className="mb-3 font-mono text-xs text-muted-foreground">{"// Current stack focus"}</p>
+              <StaggerContainer className="flex flex-wrap gap-2" stagger={0.05} once amount={0.7}>
+                {["Laravel", "Next.js", "TypeScript", "React", "Python"].map((tag) => (
+                  <StaggerItem key={tag} className="w-fit">
+                    <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/35 px-2 py-1 font-mono text-[10px] uppercase tracking-wider text-foreground">
+                      <TechIcon tech={tag} className="size-3" />
+                      {tag}
+                    </span>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
         </section>
         </AnimatedSection>
 
@@ -229,34 +247,36 @@ export default function Home() {
                 <span className="font-mono text-xs text-muted-foreground">./work</span>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
-                {dailyWork.map((item) => (
-                  <a key={item.title} href={item.url} target="_blank" rel="noreferrer" className="group block space-y-3 rounded-xl border border-border/40 bg-muted/20 p-4 transition-colors hover:bg-muted/40">
-                    <div className="relative overflow-hidden rounded-lg border border-border/60 bg-muted/35">
-                      {projectImageMap[item.title] ? (
-                        <Image
-                          src={projectImageMap[item.title]}
-                          alt={`${item.title} screenshot`}
-                          width={1200}
-                          height={675}
-                          className="aspect-video h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex aspect-video items-center justify-center">
-                          <span className="font-mono text-[10px] text-muted-foreground">Image placeholder</span>
-                        </div>
-                      )}
-                    </div>
-                    <h4 className="font-medium group-hover:text-primary">{item.title}</h4>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
-                    <div className="flex flex-wrap gap-1.5 pt-2">
-                      {item.stack.map((s) => (
-                        <span key={s} className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground before:content-['#']">
-                          <TechIcon tech={s} className="size-3" />
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </a>
+                {dailyWork.map((item, index) => (
+                  <BlurFade key={item.title} delay={0.05 * index} amount={0.45}>
+                    <a href={item.url} target="_blank" rel="noreferrer" className="group block space-y-3 rounded-xl border border-border/40 bg-muted/20 p-4 transition-colors hover:bg-muted/40">
+                      <div className="relative overflow-hidden rounded-lg border border-border/60 bg-muted/35">
+                        {projectImageMap[item.title] ? (
+                          <Image
+                            src={projectImageMap[item.title]}
+                            alt={`${item.title} screenshot`}
+                            width={1200}
+                            height={675}
+                            className="aspect-video h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <div className="flex aspect-video items-center justify-center">
+                            <span className="font-mono text-[10px] text-muted-foreground">Image placeholder</span>
+                          </div>
+                        )}
+                      </div>
+                      <h4 className="font-medium group-hover:text-primary">{item.title}</h4>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {item.stack.map((s) => (
+                          <span key={s} className="inline-flex items-center gap-1 font-mono text-[10px] text-muted-foreground before:content-['#']">
+                            <TechIcon tech={s} className="size-3" />
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </a>
+                  </BlurFade>
                 ))}
               </div>
             </div>
@@ -366,20 +386,24 @@ export default function Home() {
             {skillGroups.map((group, index) => {
               const Icon = skillIcons[index] ?? Braces;
               return (
-                <div key={group.title} className="rounded-2xl border border-border/50 bg-muted/10 p-6">
-                  <div className="mb-4 flex items-center gap-3">
-                    <Icon className="h-5 w-5 text-muted-foreground" />
-                    <h3 className="font-mono text-sm font-medium">{group.title}</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span key={item} className="inline-flex items-center gap-1.5 rounded-md border border-border/50 bg-background px-2.5 py-1 font-mono text-xs text-muted-foreground">
-                        <TechIcon tech={item} className="size-3.5" />
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <BlurFade key={group.title} delay={0.06 * index} amount={0.45}>
+                  <HoverLift>
+                    <div className="rounded-2xl border border-border/50 bg-muted/10 p-6">
+                      <div className="mb-4 flex items-center gap-3">
+                        <Icon className="h-5 w-5 text-muted-foreground" />
+                        <h3 className="font-mono text-sm font-medium">{group.title}</h3>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {group.items.map((item) => (
+                          <span key={item} className="inline-flex items-center gap-1.5 rounded-md border border-border/50 bg-background px-2.5 py-1 font-mono text-xs text-muted-foreground">
+                            <TechIcon tech={item} className="size-3.5" />
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </HoverLift>
+                </BlurFade>
               );
             })}
           </div>
@@ -406,28 +430,31 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <StaggerContainer className="grid grid-cols-2 gap-3" stagger={0.08} once amount={0.35}>
                 {profileLinks.map((link) => {
                   const Icon = link.icon;
                   return (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex flex-col justify-between rounded-xl border border-border/40 bg-muted/20 p-5 transition-colors hover:bg-muted/50"
-                    >
-                      <Icon className="mb-4 h-5 w-5 text-muted-foreground group-hover:text-primary" />
-                      <div>
-                        <p className="font-mono text-xs font-semibold">{link.label}</p>
-                        <p className="mt-1 text-[10px] text-muted-foreground line-clamp-2">
-                          {link.description}
-                        </p>
-                      </div>
-                    </a>
+                    <StaggerItem key={link.label}>
+                      <HoverLift>
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group flex h-full flex-col justify-between rounded-xl border border-border/40 bg-muted/20 p-5 transition-colors hover:bg-muted/50"
+                        >
+                          <Icon className="mb-4 h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:scale-110 group-hover:text-primary" />
+                          <div>
+                            <p className="font-mono text-xs font-semibold">{link.label}</p>
+                            <p className="mt-1 text-[10px] text-muted-foreground line-clamp-2">
+                              {link.description}
+                            </p>
+                          </div>
+                        </a>
+                      </HoverLift>
+                    </StaggerItem>
                   );
                 })}
-              </div>
+              </StaggerContainer>
             </div>
           </div>
         </section>
